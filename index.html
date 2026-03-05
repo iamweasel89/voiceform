@@ -41,7 +41,7 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
 .preview-wrap { position: relative; border-radius: var(--radius); overflow: hidden; }
 .preview-wrap img { width: 100%; display: block; }
 .mic-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0; }
-.mic-btn { width: 72px; height: 72px; border-radius: 50%; border: none; cursor: pointer; font-size: 32px; color: #fff; background: var(--blue); box-shadow: 0 4px 20px rgba(43,108,176,.4); transition: all .2s; }
+.mic-btn { width: 72px; height: 72px; border-radius: 50%; border: none; cursor: pointer; font-size: 32px; color: #fff; background: var(--blue); box-shadow: 0 4px 20px rgba(43,108,176,.4); transition: all .2s; position: fixed; bottom: 24px; right: 24px; z-index: 50; }
 .mic-btn.listening { background: var(--red); box-shadow: 0 0 0 12px rgba(229,62,62,.15); }
 .mic-label { font-size: 12px; color: var(--gray); text-align: center; }
 .transcript-box { background: #f7fafc; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 13px; color: #4a5568; line-height: 1.6; max-height: 90px; overflow-y: auto; display: none; }
@@ -132,9 +132,10 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
     </div>
   </div>
   <div class="card fields-section" id="fields-container"></div>
+  <div style="height:80px"></div>
   <button class="btn btn-primary" onclick="goToResult()" id="done-btn" style="display:none">✅ Готово — посмотреть результат</button>
   <button class="btn btn-secondary" onclick="goToUpload()">← Новый бланк</button>
-</div>
+  </div>
 <!-- Экран 3: Результат -->
 <div class="screen" id="screen-result">
   <div class="header">
