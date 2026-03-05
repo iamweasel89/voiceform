@@ -77,7 +77,6 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
 </style>
 </head>
 <body>
-<!-- Экран 1: Загрузка бланка -->
 <div class="screen active" id="screen-upload">
   <div class="header">
     <div><h1>VoiceForm</h1><div class="sub">Загрузите фото бланка</div></div>
@@ -105,7 +104,6 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
     <button class="btn btn-primary" onclick="analyzeForm()" id="analyze-btn">🔍 Распознать поля</button>
   </div>
 </div>
-<!-- Экран 2: Голосовой ввод -->
 <div class="screen" id="screen-voice">
   <div class="header">
     <div><h1>VoiceForm</h1><div class="sub">Заполнение формы</div></div>
@@ -135,7 +133,6 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
   <button class="btn btn-primary" onclick="goToResult()" id="done-btn" style="display:none">✅ Готово — посмотреть результат</button>
   <button class="btn btn-secondary" onclick="goToUpload()">← Новый бланк</button>
 </div>
-<!-- Экран 3: Результат -->
 <div class="screen" id="screen-result">
   <div class="header">
     <div><h1>VoiceForm</h1><div class="sub">Результат</div></div>
@@ -154,7 +151,6 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
   <button class="btn btn-secondary" onclick="goToVoice()">← Редактировать</button>
   <button class="btn btn-secondary" onclick="goToUpload()">📄 Новый бланк</button>
 </div>
-<!-- Модальное окно языка -->
 <div class="modal-bg" id="lang-modal" onclick="closeLang(event)">
   <div class="modal">
     <h3>🌐 Язык распознавания речи</h3>
@@ -171,6 +167,7 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
 let currentLang = 'ru-RU';
 let formFields = [];
 let imageBase64 = '';
+let imageType = 'image/jpeg';
 let rec = null, isListening = false, finalText = '', capturedText = '';
 
 function getKey() {
@@ -206,6 +203,7 @@ function setLang(code, label) {
 function handleFile(input) {
   const file = input.files[0];
   if (!file) return;
+  imageType = file.type || 'image/jpeg';
   const reader = new FileReader();
   reader.onload = e => {
     imageBase64 = e.target.result.split(',')[1];
@@ -241,13 +239,16 @@ async function analyzeForm() {
         messages: [{
           role: 'user',
           content: [
-            { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageBase64 }},
+            { type: 'image', source: { type: 'base64', media_type: imageType, data: imageBase64 }},
             { type: 'text', text: 'Analyze this registration form. Extract all fillable fields. Return ONLY a JSON array, no markdown:\n[{"id":"camelCaseId","label":"Field Label","section":"Section Name"}]\nInclude ALL fields with blank lines or input boxes.' }
           ]
         }]
       })
     });
-    if (!res.ok) throw new Error('API ' + res.status);
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error('API ' + res.status + ': ' + errText.substring(0, 100));
+    }
     const data = await res.json();
     const raw = (data.content?.[0]?.text || '[]').replace(/```json|```/g, '').trim();
     formFields = JSON.parse(raw);
