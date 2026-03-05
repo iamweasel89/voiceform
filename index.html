@@ -373,7 +373,7 @@ async function parseWithClaude(text) {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 800,
-        system: 'Extract form field values from speech. Return ONLY valid JSON with field IDs as keys. Only include found fields. No markdown.\nFields: {' + fieldList + '}',
+        system: 'Extract form field values from speech. Return ONLY valid JSON with field IDs as keys. Only include found fields. No markdown. For phone numbers: always start with +, preserve country code (e.g. +7, +1). If user says "plus seven..." write "+7...".\nFields: {' + fieldList + '}',
         messages: [{ role: 'user', content: text }]
       })
     });
@@ -384,7 +384,11 @@ async function parseWithClaude(text) {
     let count = 0;
     Object.entries(parsed).forEach(([k, v]) => {
       const el = document.getElementById('field_' + k);
-      if (el && v) { el.value = v; flashField(k); count++; }
+      if (el && v) {
+        const isPhone = k.toLowerCase().includes('phone') || k.toLowerCase().includes('tel');
+        if (isPhone && v && !v.startsWith('+') && /^[0-9]/.test(v)) v = '+' + v;
+        el.value = v; flashField(k); count++;
+      }
     });
     btn.textContent = '🎤';
     setStatus('voice', '✅ Заполнено ' + count + ' полей. Говорите снова чтобы дополнить', 'green');
