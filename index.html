@@ -7,7 +7,6 @@
 <meta name="theme-color" content="#2b6cb0">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>VoiceForm</title>
 <link rel="manifest" href="manifest.json">
 <style>
@@ -19,44 +18,33 @@
   --radius: 14px; --shadow: 0 2px 16px rgba(0,0,0,0.09);
 }
 body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); min-height: 100vh; color: #1a202c; }
-/* SCREENS */
 .screen { display: none; flex-direction: column; min-height: 100vh; padding: 16px; gap: 14px; max-width: 600px; margin: 0 auto; }
 .screen.active { display: flex; }
-/* HEADER */
 .header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
 .header h1 { font-size: 20px; font-weight: 700; color: var(--blue); }
 .header .sub { font-size: 12px; color: var(--gray); }
 .lang-btn { padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); font-size: 13px; cursor: pointer; color: var(--gray); }
-/* CARDS */
 .card { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
-/* STATUS BAR */
 .status { padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 500; line-height: 1.4; transition: all .3s; }
-/* STEPS */
 .step-indicator { display: flex; gap: 8px; align-items: center; }
 .step { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--border); color: var(--gray); transition: all .3s; }
 .step.active { background: var(--blue); color: #fff; }
 .step.done { background: var(--green); color: #fff; }
 .step-line { flex: 1; height: 2px; background: var(--border); border-radius: 2px; }
 .step-line.done { background: var(--green); }
-/* UPLOAD ZONE */
 .upload-zone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 32px 20px; text-align: center; cursor: pointer; transition: all .2s; }
 .upload-zone:active { border-color: var(--blue); background: var(--blue-light); }
 .upload-zone .icon { font-size: 48px; margin-bottom: 12px; }
 .upload-zone p { color: var(--gray); font-size: 14px; }
 .upload-zone strong { color: var(--blue); }
 #fileInput { display: none; }
-/* PREVIEW */
-.preview-wrap { position: relative; border-radius: var(--radius); overflow: hidden; background: #000; }
-.preview-wrap img { width: 100%; display: block; opacity: 0.9; }
-/* MIC BUTTON */
+.preview-wrap { position: relative; border-radius: var(--radius); overflow: hidden; }
+.preview-wrap img { width: 100%; display: block; }
 .mic-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 0; }
-.mic-btn { width: 72px; height: 72px; border-radius: 50%; border: none; cursor: pointer; font-size: 32px; color: #fff; background: var(--blue); box-shadow: 0 4px 20px rgba(43,108,176,.4); transition: all .2s; position: relative; }
-.mic-btn.listening { background: var(--red); box-shadow: 0 0 0 12px rgba(229,62,62,.15), 0 4px 20px rgba(229,62,62,.3); }
-.mic-btn.parsing { background: var(--yellow); }
+.mic-btn { width: 72px; height: 72px; border-radius: 50%; border: none; cursor: pointer; font-size: 32px; color: #fff; background: var(--blue); box-shadow: 0 4px 20px rgba(43,108,176,.4); transition: all .2s; }
+.mic-btn.listening { background: var(--red); box-shadow: 0 0 0 12px rgba(229,62,62,.15); }
 .mic-label { font-size: 12px; color: var(--gray); text-align: center; }
-/* TRANSCRIPT */
 .transcript-box { background: #f7fafc; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 13px; color: #4a5568; line-height: 1.6; max-height: 90px; overflow-y: auto; display: none; }
-/* FIELDS */
 .fields-section { display: flex; flex-direction: column; gap: 10px; }
 .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); margin-bottom: 4px; padding-bottom: 6px; border-bottom: 2px solid var(--blue-light); }
 .section-title.red { color: var(--red); border-color: #fed7d7; }
@@ -66,15 +54,12 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
 .field-row input:focus { border-color: var(--blue); background: var(--blue-light); }
 .field-row input.filled { border-color: #68d391; background: var(--green-light); }
 .field-row input.flash { border-color: var(--blue) !important; background: var(--blue-light) !important; }
-/* GRID */
 .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .field-grid .field-row.full { grid-column: 1 / -1; }
-/* BUTTONS */
 .btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; transition: all .2s; }
 .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 4px 12px rgba(43,108,176,.3); }
 .btn-secondary { background: var(--card); color: var(--blue); border: 2px solid var(--blue); }
 .btn:active { transform: scale(0.97); }
-/* LANG MODAL */
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100; align-items: flex-end; }
 .modal-bg.open { display: flex; }
 .modal { background: #fff; border-radius: 20px 20px 0 0; padding: 20px; width: 100%; }
@@ -82,69 +67,59 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
 .lang-option { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 15px; border: 1.5px solid transparent; }
 .lang-option:active { background: var(--blue-light); }
 .lang-option.selected { border-color: var(--blue); background: var(--blue-light); }
-/* PROGRESS BAR */
 .progress { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width .4s; }
-/* COUNTER BADGE */
 .badge { background: var(--blue-light); color: var(--blue); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
-/* DEBUG */
-.debug { font-size: 10px; color: #a0aec0; padding: 6px; display: none; word-break: break-all; }
 @media (max-width: 400px) {
-.field-grid { grid-template-columns: 1fr; }
-.field-grid .field-row.full { grid-column: 1; }
+  .field-grid { grid-template-columns: 1fr; }
+  .field-grid .field-row.full { grid-column: 1; }
 }
 </style>
 </head>
 <body>
-<!-- SCREEN 1: Upload -->
+<!-- Экран 1: Загрузка бланка -->
 <div class="screen active" id="screen-upload">
   <div class="header">
-    <div><h1>VoiceForm</h1><div class="sub" id="sub-upload">Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚Ðµ Ñ„Ð¾Ñ‚Ð¾ Ð±Ð»Ð°Ð½ÐºÐ°</div></div>
-    <button class="lang-btn" onclick="openLang()">ðŸŒ <span id="lang-label">RU</span></button>
+    <div><h1>VoiceForm</h1><div class="sub">Загрузите фото бланка</div></div>
+    <button class="lang-btn" onclick="openLang()">🌐 <span id="lang-label">RU</span></button>
   </div>
   <div class="step-indicator">
-    <div class="step active">1</div>
-    <div class="step-line"></div>
-    <div class="step">2</div>
-    <div class="step-line"></div>
+    <div class="step active">1</div><div class="step-line"></div>
+    <div class="step">2</div><div class="step-line"></div>
     <div class="step">3</div>
   </div>
   <div class="card">
     <div class="status" id="status-upload" style="background:#f7fafc;border:1px solid #e2e8f0;color:#718096;">
-      ðŸ“‹ Ð¡Ñ„Ð¾Ñ‚Ð¾Ð³Ñ€Ð°Ñ„Ð¸Ñ€ÑƒÐ¹Ñ‚Ðµ Ð¸Ð»Ð¸ Ð²Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð±Ð»Ð°Ð½Ðº
+      📋 Сфотографируйте или выберите бланк
     </div>
     <div style="height:12px"></div>
     <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-      <div class="icon" id="upload-icon">ðŸ“„</div>
-      <p id="upload-text"><strong>ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð²Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ</strong><br>Ñ„Ð¾Ñ‚Ð¾ Ð¸Ð»Ð¸ ÑÐºÐ°Ð½ Ð±Ð»Ð°Ð½ÐºÐ°</p>
+      <div class="icon" id="upload-icon">📄</div>
+      <p id="upload-text"><strong>Нажмите чтобы выбрать</strong><br>фото или скан бланка</p>
     </div>
     <input type="file" id="fileInput" accept="image/*" capture="environment" onchange="handleFile(this)">
   </div>
   <div class="card" id="preview-card" style="display:none">
-    <div class="preview-wrap">
-      <img id="preview-img" src="" alt="Ð±Ð»Ð°Ð½Ðº">
-    </div>
+    <div class="preview-wrap"><img id="preview-img" src="" alt="бланк"></div>
     <div style="height:12px"></div>
-    <button class="btn btn-primary" onclick="analyzeForm()" id="analyze-btn">ðŸ” Ð Ð°ÑÐ¿Ð¾Ð·Ð½Ð°Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ</button>
+    <button class="btn btn-primary" onclick="analyzeForm()" id="analyze-btn">🔍 Распознать поля</button>
   </div>
 </div>
-<!-- SCREEN 2: Voice Input -->
+<!-- Экран 2: Голосовой ввод -->
 <div class="screen" id="screen-voice">
   <div class="header">
-    <div><h1>VoiceForm</h1><div class="sub" id="form-title-sub">Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ñ„Ð¾Ñ€Ð¼Ñ‹</div></div>
-    <button class="lang-btn" onclick="openLang()">ðŸŒ <span id="lang-label2">RU</span></button>
+    <div><h1>VoiceForm</h1><div class="sub">Заполнение формы</div></div>
+    <button class="lang-btn" onclick="openLang()">🌐 <span id="lang-label2">RU</span></button>
   </div>
   <div class="step-indicator">
-    <div class="step done">âœ“</div>
-    <div class="step-line done"></div>
-    <div class="step active">2</div>
-    <div class="step-line"></div>
+    <div class="step done">✓</div><div class="step-line done"></div>
+    <div class="step active">2</div><div class="step-line"></div>
     <div class="step">3</div>
   </div>
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div class="status" id="status-voice" style="background:#f7fafc;border:1px solid #e2e8f0;color:#718096;flex:1">
-        ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ ðŸŽ¤ Ð¸ Ð³Ð¾Ð²Ð¾Ñ€Ð¸Ñ‚Ðµ
+        Нажмите 🎤 и говорите
       </div>
       <span class="badge" style="margin-left:10px" id="field-counter">0/0</span>
     </div>
@@ -152,137 +127,111 @@ body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); mi
     <div style="height:14px"></div>
     <div class="transcript-box" id="transcript"></div>
     <div class="mic-wrap">
-      <button class="mic-btn" id="micBtn" onclick="toggleMic()">ðŸŽ¤</button>
-      <div class="mic-label" id="mic-label">ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð½Ð°Ñ‡Ð°Ñ‚ÑŒ Ð·Ð°Ð¿Ð¸ÑÑŒ</div>
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎤</button>
+      <div class="mic-label" id="mic-label">Нажмите чтобы начать запись</div>
     </div>
-    <div class="debug" id="debug"></div>
   </div>
-  <div class="card fields-section" id="fields-container">
-    <!-- Ð´Ð¸Ð½Ð°Ð¼Ð¸Ñ‡ÐµÑÐºÐ¸ -->
-  </div>
-  <button class="btn btn-primary" onclick="goToResult()" id="done-btn" style="display:none">
-    âœ… Ð“Ð¾Ñ‚Ð¾Ð²Ð¾ â€” Ð¿Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ÐµÑ‚ÑŒ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚
-  </button>
-  <button class="btn btn-secondary" onclick="goToUpload()">â† ÐÐ¾Ð²Ñ‹Ð¹ Ð±Ð»Ð°Ð½Ðº</button>
+  <div class="card fields-section" id="fields-container"></div>
+  <button class="btn btn-primary" onclick="goToResult()" id="done-btn" style="display:none">✅ Готово — посмотреть результат</button>
+  <button class="btn btn-secondary" onclick="goToUpload()">← Новый бланк</button>
 </div>
-<!-- SCREEN 3: Result -->
+<!-- Экран 3: Результат -->
 <div class="screen" id="screen-result">
   <div class="header">
-    <div><h1>VoiceForm</h1><div class="sub">Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚</div></div>
+    <div><h1>VoiceForm</h1><div class="sub">Результат</div></div>
   </div>
   <div class="step-indicator">
-    <div class="step done">âœ“</div>
-    <div class="step-line done"></div>
-    <div class="step done">âœ“</div>
-    <div class="step-line done"></div>
+    <div class="step done">✓</div><div class="step-line done"></div>
+    <div class="step done">✓</div><div class="step-line done"></div>
     <div class="step active">3</div>
   </div>
   <div class="card">
-    <div style="text-align:center;font-size:48px;margin-bottom:8px">âœ…</div>
-    <div style="text-align:center;font-weight:700;font-size:18px;color:var(--green);margin-bottom:16px" id="result-title">Ð¤Ð¾Ñ€Ð¼Ð° Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð°</div>
+    <div style="text-align:center;font-size:48px;margin-bottom:8px">✅</div>
+    <div style="text-align:center;font-weight:700;font-size:18px;color:var(--green);margin-bottom:16px" id="result-title">Форма заполнена</div>
     <div id="result-content" style="display:flex;flex-direction:column;gap:8px"></div>
   </div>
-<button class="btn btn-primary" onclick="window.print()">ðŸ–¨ Ð Ð°ÑÐ¿ÐµÑ‡Ð°Ñ‚Ð°Ñ‚ÑŒ</button>
-<button class="btn btn-secondary" onclick="goToVoice()">â† Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ</button>
-<button class="btn btn-secondary" onclick="goToUpload()">ðŸ“„ ÐÐ¾Ð²Ñ‹Ð¹ Ð±Ð»Ð°Ð½Ðº</button>
+  <button class="btn btn-primary" onclick="window.print()">🖨 Распечатать</button>
+  <button class="btn btn-secondary" onclick="goToVoice()">← Редактировать</button>
+  <button class="btn btn-secondary" onclick="goToUpload()">📄 Новый бланк</button>
 </div>
-<!-- LANG MODAL -->
+<!-- Модальное окно языка -->
 <div class="modal-bg" id="lang-modal" onclick="closeLang(event)">
   <div class="modal">
-    <h3>ðŸŒ Ð¯Ð·Ñ‹Ðº Ñ€Ð°ÑÐ¿Ð¾Ð·Ð½Ð°Ð²Ð°Ð½Ð¸Ñ Ñ€ÐµÑ‡Ð¸</h3>
-    <div class="lang-option selected" onclick="setLang('ru-RU','RU','Ð ÑƒÑÑÐºÐ¸Ð¹')" id="lang-ru">
-      <span style="font-size:24px">ðŸ‡·ðŸ‡º</span> Ð ÑƒÑÑÐºÐ¸Ð¹
-    </div>
-    <div class="lang-option" onclick="setLang('en-US','EN','English')" id="lang-en">
-      <span style="font-size:24px">ðŸ‡ºðŸ‡¸</span> English
-    </div>
-    <div class="lang-option" onclick="setLang('de-DE','DE','Deutsch')" id="lang-de">
-      <span style="font-size:24px">ðŸ‡©ðŸ‡ª</span> Deutsch
-    </div>
-    <div class="lang-option" onclick="setLang('fr-FR','FR','FranÃ§ais')" id="lang-fr">
-      <span style="font-size:24px">ðŸ‡«ðŸ‡·</span> FranÃ§ais
-    </div>
-    <div class="lang-option" onclick="setLang('es-ES','ES','EspaÃ±ol')" id="lang-es">
-      <span style="font-size:24px">ðŸ‡ªðŸ‡¸</span> EspaÃ±ol
-    </div>
+    <h3>🌐 Язык распознавания речи</h3>
+    <div class="lang-option selected" onclick="setLang('ru-RU','RU')">🇷🇺 Русский</div>
+    <div class="lang-option" onclick="setLang('en-US','EN')">🇺🇸 English</div>
+    <div class="lang-option" onclick="setLang('de-DE','DE')">🇩🇪 Deutsch</div>
+    <div class="lang-option" onclick="setLang('fr-FR','FR')">🇫🇷 Français</div>
+    <div class="lang-option" onclick="setLang('es-ES','ES')">🇪🇸 Español</div>
     <div style="height:12px"></div>
-    <button class="btn btn-secondary" onclick="closeLang()">Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ</button>
+    <button class="btn btn-secondary" onclick="closeLang()">Закрыть</button>
   </div>
 </div>
 <script>
-const API_KEY = localStorage.getItem('vf_key') || '';
-if (!localStorage.getItem('vf_key')) { const k = prompt('Введите Anthropic API Key:'); if (k) localStorage.setItem('vf_key', k); }
-
 let currentLang = 'ru-RU';
 let formFields = [];
 let imageBase64 = '';
 let rec = null, isListening = false, finalText = '', capturedText = '';
 
-// â”€â”€â”€ NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function getKey() {
+  let k = localStorage.getItem('vf_key');
+  if (!k) {
+    k = prompt('Введите Anthropic API Key:');
+    if (k) localStorage.setItem('vf_key', k);
+  }
+  return k || '';
+}
+
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
 }
 function goToUpload() { showScreen('screen-upload'); }
 function goToVoice()  { showScreen('screen-voice'); }
 function goToResult() { buildResult(); showScreen('screen-result'); }
 
-// â”€â”€â”€ LANGUAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openLang() { document.getElementById('lang-modal').classList.add('open'); }
 function closeLang(e) {
   if (!e || e.target === document.getElementById('lang-modal'))
     document.getElementById('lang-modal').classList.remove('open');
 }
-function setLang(code, label, name) {
+function setLang(code, label) {
   currentLang = code;
   document.getElementById('lang-label').textContent = label;
   document.getElementById('lang-label2').textContent = label;
-  document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('selected'));
-  document.getElementById('lang-' + label.toLowerCase()).classList.add('selected');
   closeLang();
 }
 
-// â”€â”€â”€ FILE UPLOAD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function handleFile(input) {
   const file = input.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const dataUrl = e.target.result;
-    imageBase64 = dataUrl.split(',')[1];
-    document.getElementById('preview-img').src = dataUrl;
+    imageBase64 = e.target.result.split(',')[1];
+    document.getElementById('preview-img').src = e.target.result;
     document.getElementById('preview-card').style.display = 'block';
-    document.getElementById('upload-icon').textContent = 'âœ…';
-    document.getElementById('upload-text').innerHTML = '<strong>' + file.name + '</strong><br>ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð· Ñ‡Ñ‚Ð¾Ð±Ñ‹ ÑÐ¼ÐµÐ½Ð¸Ñ‚ÑŒ';
-    setStatus('upload', 'ðŸ“· Ð˜Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½Ð¾. ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ "Ð Ð°ÑÐ¿Ð¾Ð·Ð½Ð°Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ"', 'green');
+    document.getElementById('upload-icon').textContent = '✅';
+    document.getElementById('upload-text').innerHTML = '<strong>' + file.name + '</strong>';
+    setStatus('upload', '📷 Изображение загружено. Нажмите «Распознать поля»', 'green');
   };
   reader.readAsDataURL(file);
 }
 
-// â”€â”€â”€ ANALYZE FORM (Vision) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function analyzeForm() {
   const btn = document.getElementById('analyze-btn');
   btn.disabled = true;
-  btn.textContent = 'â³ Ð Ð°ÑÐ¿Ð¾Ð·Ð½Ð°ÑŽ Ð¿Ð¾Ð»Ñâ€¦';
-  setStatus('upload', 'â³ Claude Ð°Ð½Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÑ‚ Ð±Ð»Ð°Ð½Ðºâ€¦', 'yellow');
-
-  const prompt = `You are analyzing a registration form image. 
-Extract all fillable fields from this form.
-Return ONLY a JSON array of objects, no markdown, no explanation:
-[{"id":"fieldId","label":"Field Label","section":"Section Name"}]
-Rules:
-- id: camelCase, unique, English
-- label: as shown on form
-- section: group name (e.g. "Patient Information", "Emergency Contact")
-- Include ALL visible fields with blank lines or boxes`;
+  btn.textContent = '⏳ Распознаю поля…';
+  setStatus('upload', '⏳ Claude анализирует бланк…', 'yellow');
+  const key = getKey();
+  if (!key) { btn.disabled = false; btn.textContent = '🔍 Распознать поля'; return; }
 
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
+        'x-api-key': key,
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
@@ -293,60 +242,50 @@ Rules:
           role: 'user',
           content: [
             { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageBase64 }},
-            { type: 'text', text: prompt }
+            { type: 'text', text: 'Analyze this registration form. Extract all fillable fields. Return ONLY a JSON array, no markdown:\n[{"id":"camelCaseId","label":"Field Label","section":"Section Name"}]\nInclude ALL fields with blank lines or input boxes.' }
           ]
         }]
       })
     });
-
     if (!res.ok) throw new Error('API ' + res.status);
     const data = await res.json();
-    const raw = (data.content?.[0]?.text || '[]').replace(/```json|```/g,'').trim();
+    const raw = (data.content?.[0]?.text || '[]').replace(/```json|```/g, '').trim();
     formFields = JSON.parse(raw);
-
-    if (!formFields.length) throw new Error('ÐŸÐ¾Ð»Ñ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ñ‹');
-
+    if (!formFields.length) throw new Error('Поля не найдены');
     renderFields();
     showScreen('screen-voice');
-    setStatus('voice', `âœ… ÐÐ°Ð¹Ð´ÐµÐ½Ð¾ ${formFields.length} Ð¿Ð¾Ð»ÐµÐ¹. ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ ðŸŽ¤ Ð¸ Ð³Ð¾Ð²Ð¾Ñ€Ð¸Ñ‚Ðµ`, 'green');
+    setStatus('voice', '✅ Найдено ' + formFields.length + ' полей. Нажмите 🎤 и говорите', 'green');
     updateCounter();
-
   } catch(e) {
-    setStatus('upload', 'âš ï¸ ÐžÑˆÐ¸Ð±ÐºÐ°: ' + e.message, 'red');
+    setStatus('upload', '⚠️ Ошибка: ' + e.message, 'red');
     btn.disabled = false;
-    btn.textContent = 'ðŸ” Ð Ð°ÑÐ¿Ð¾Ð·Ð½Ð°Ñ‚ÑŒ Ð¿Ð¾Ð»Ñ';
+    btn.textContent = '🔍 Распознать поля';
   }
 }
 
-// â”€â”€â”€ RENDER FIELDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderFields() {
   const container = document.getElementById('fields-container');
   container.innerHTML = '';
-
   const sections = {};
   formFields.forEach(f => {
-    const sec = f.section || 'ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ðµ';
+    const sec = f.section || 'Основное';
     if (!sections[sec]) sections[sec] = [];
     sections[sec].push(f);
   });
-
-  Object.entries(sections).forEach(([secName, fields], si) => {
-    const titleEl = document.createElement('div');
-    titleEl.className = 'section-title' + (si > 0 ? ' red' : '');
-    titleEl.textContent = secName;
-    container.appendChild(titleEl);
-
+  let si = 0;
+  Object.entries(sections).forEach(([secName, fields]) => {
+    const title = document.createElement('div');
+    title.className = 'section-title' + (si++ > 0 ? ' red' : '');
+    title.textContent = secName;
+    container.appendChild(title);
     const grid = document.createElement('div');
     grid.className = 'field-grid';
-
     fields.forEach(f => {
       const row = document.createElement('div');
-      const isLong = f.label.length > 20;
-      row.className = 'field-row' + (isLong ? ' full' : '');
-      row.innerHTML = `<label>${f.label}</label><input id="field_${f.id}" placeholder="" oninput="onFieldEdit('${f.id}')">`;
+      row.className = 'field-row' + (f.label.length > 18 ? ' full' : '');
+      row.innerHTML = '<label>' + f.label + '</label><input id="field_' + f.id + '" oninput="onFieldEdit(\'' + f.id + '\')">';
       grid.appendChild(row);
     });
-
     container.appendChild(grid);
   });
 }
@@ -357,31 +296,20 @@ function onFieldEdit(id) {
   updateCounter();
 }
 
-// â”€â”€â”€ VOICE INPUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function toggleMic() {
-  if (isListening) {
-    rec?.stop();
-    return;
-  }
+  if (isListening) { rec?.stop(); return; }
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { alert('ÐÑƒÐ¶ÐµÐ½ Chrome!'); return; }
-
+  if (!SR) { alert('Нужен Chrome!'); return; }
   finalText = ''; capturedText = '';
   const tr = document.getElementById('transcript');
   tr.style.display = 'block'; tr.textContent = '';
-
-  setStatus('voice', 'ðŸ”´ Ð¡Ð»ÑƒÑˆÐ°ÑŽâ€¦ Ð³Ð¾Ð²Ð¾Ñ€Ð¸Ñ‚Ðµ, Ð·Ð°Ñ‚ÐµÐ¼ Ð½Ð°Ð¶Ð¼Ð¸Ñ‚Ðµ â¹', 'red');
+  setStatus('voice', '🔴 Слушаю… нажмите ⏹ когда закончите', 'red');
   isListening = true;
-
   const btn = document.getElementById('micBtn');
-  btn.textContent = 'â¹'; btn.classList.add('listening');
-  document.getElementById('mic-label').textContent = 'ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ â¹ ÐºÐ¾Ð³Ð´Ð° Ð·Ð°ÐºÐ¾Ð½Ñ‡Ð¸Ñ‚Ðµ';
-
+  btn.textContent = '⏹'; btn.classList.add('listening');
+  document.getElementById('mic-label').textContent = 'Нажмите ⏹ когда закончите';
   rec = new SR();
-  rec.lang = currentLang;
-  rec.continuous = true;
-  rec.interimResults = true;
-
+  rec.lang = currentLang; rec.continuous = true; rec.interimResults = true;
   rec.onresult = e => {
     let interim = '';
     for (let i = e.resultIndex; i < e.results.length; i++) {
@@ -392,99 +320,79 @@ function toggleMic() {
     tr.textContent = finalText + interim;
     tr.scrollTop = tr.scrollHeight;
   };
-
   rec.onerror = e => {
     isListening = false;
-    btn.textContent = 'ðŸŽ¤'; btn.classList.remove('listening');
-    setStatus('voice', 'âš ï¸ ÐžÑˆÐ¸Ð±ÐºÐ° Ð¼Ð¸ÐºÑ€Ð¾Ñ„Ð¾Ð½Ð°: ' + e.error, 'red');
-    document.getElementById('mic-label').textContent = 'ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð½Ð°Ñ‡Ð°Ñ‚ÑŒ Ð·Ð°Ð¿Ð¸ÑÑŒ';
+    btn.textContent = '🎤'; btn.classList.remove('listening');
+    setStatus('voice', '⚠️ Ошибка микрофона: ' + e.error, 'red');
+    document.getElementById('mic-label').textContent = 'Нажмите чтобы начать запись';
   };
-
   rec.onend = () => {
     isListening = false;
-    btn.textContent = 'ðŸŽ¤'; btn.classList.remove('listening');
-    btn.classList.remove('parsing');
+    btn.textContent = '🎤'; btn.classList.remove('listening');
+    document.getElementById('mic-label').textContent = 'Нажмите чтобы начать запись';
     capturedText = finalText.trim();
-    document.getElementById('mic-label').textContent = 'ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð½Ð°Ñ‡Ð°Ñ‚ÑŒ Ð·Ð°Ð¿Ð¸ÑÑŒ';
     if (capturedText) parseWithClaude(capturedText);
-    else setStatus('voice', 'ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ ðŸŽ¤ Ð¸ Ð³Ð¾Ð²Ð¾Ñ€Ð¸Ñ‚Ðµ', 'gray');
+    else setStatus('voice', 'Нажмите 🎤 и говорите', 'gray');
   };
-
   rec.start();
 }
 
-// â”€â”€â”€ PARSE MONOLOGUE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function parseWithClaude(text) {
   const btn = document.getElementById('micBtn');
-  btn.classList.add('parsing'); btn.textContent = 'â³';
-  setStatus('voice', 'â³ Claude Ñ€Ð°Ð·Ð±Ð¸Ñ€Ð°ÐµÑ‚ Ð¿Ð¾ Ð¿Ð¾Ð»ÑÐ¼â€¦', 'yellow');
-
-  const fieldList = formFields.map(f => `"${f.id}": "${f.label}"`).join(', ');
-  const system = `Extract form field values from speech. Return ONLY valid JSON with field IDs as keys. Only include fields you found. No markdown, just JSON.
-Available fields: {${fieldList}}`;
-
+  btn.textContent = '⏳';
+  setStatus('voice', '⏳ Claude разбирает по полям…', 'yellow');
+  const key = getKey();
+  if (!key) { btn.textContent = '🎤'; return; }
+  const fieldList = formFields.map(f => '"' + f.id + '": "' + f.label + '"').join(', ');
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
+        'x-api-key': key,
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 800,
-        system,
+        system: 'Extract form field values from speech. Return ONLY valid JSON with field IDs as keys. Only include found fields. No markdown.\nFields: {' + fieldList + '}',
         messages: [{ role: 'user', content: text }]
       })
     });
-
     if (!res.ok) throw new Error('API ' + res.status);
     const data = await res.json();
-    const raw = (data.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+    const raw = (data.content?.[0]?.text || '{}').replace(/```json|```/g, '').trim();
     const parsed = JSON.parse(raw);
-
     let count = 0;
     Object.entries(parsed).forEach(([k, v]) => {
       const el = document.getElementById('field_' + k);
       if (el && v) { el.value = v; flashField(k); count++; }
     });
-
-    btn.textContent = 'ðŸŽ¤';
-    setStatus('voice', `âœ… Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾ ${count} Ð¿Ð¾Ð»ÐµÐ¹. Ð“Ð¾Ð²Ð¾Ñ€Ð¸Ñ‚Ðµ ÑÐ½Ð¾Ð²Ð° Ñ‡Ñ‚Ð¾Ð±Ñ‹ Ð´Ð¾Ð¿Ð¾Ð»Ð½Ð¸Ñ‚ÑŒ`, 'green');
+    btn.textContent = '🎤';
+    setStatus('voice', '✅ Заполнено ' + count + ' полей. Говорите снова чтобы дополнить', 'green');
     updateCounter();
     document.getElementById('done-btn').style.display = 'block';
-
   } catch(e) {
-    btn.textContent = 'ðŸŽ¤';
-    setStatus('voice', 'âš ï¸ ' + e.message, 'red');
-    showDebug(e.message);
+    btn.textContent = '🎤';
+    setStatus('voice', '⚠️ ' + e.message, 'red');
   }
 }
 
-// â”€â”€â”€ RESULT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function buildResult() {
   const container = document.getElementById('result-content');
   container.innerHTML = '';
   let filled = 0;
-
   formFields.forEach(f => {
     const el = document.getElementById('field_' + f.id);
     if (el?.value) {
       filled++;
-      container.innerHTML += `
-        <div style="display:flex;gap:10px;border-bottom:1px solid #f0f0f0;padding-bottom:8px">
-          <span style="font-size:12px;font-weight:600;color:var(--gray);min-width:140px;flex-shrink:0">${f.label}</span>
-          <span style="font-size:13px;color:#1a202c">${el.value}</span>
-        </div>`;
+      container.innerHTML += '<div style="display:flex;gap:10px;border-bottom:1px solid #f0f0f0;padding-bottom:8px"><span style="font-size:12px;font-weight:600;color:var(--gray);min-width:130px;flex-shrink:0">' + f.label + '</span><span style="font-size:13px;color:#1a202c">' + el.value + '</span></div>';
     }
   });
-
-  document.getElementById('result-title').textContent = `Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¾ ${filled} Ð¸Ð· ${formFields.length} Ð¿Ð¾Ð»ÐµÐ¹`;
+  document.getElementById('result-title').textContent = 'Заполнено ' + filled + ' из ' + formFields.length + ' полей';
 }
 
-// â”€â”€â”€ HELPERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function setStatus(screen, text, type) {
   const id = screen === 'upload' ? 'status-upload' : 'status-voice';
   const el = document.getElementById(id);
@@ -496,30 +404,21 @@ function setStatus(screen, text, type) {
   };
   const [c, bg, border] = colors[type] || colors.gray;
   el.textContent = text;
-  el.style.color = c;
-  el.style.background = bg;
-  el.style.border = `1px solid ${border}`;
+  el.style.color = c; el.style.background = bg; el.style.border = '1px solid ' + border;
 }
 
 function flashField(id) {
   const el = document.getElementById('field_' + id);
   if (!el) return;
-  el.classList.remove('filled');
-  el.classList.add('flash');
+  el.classList.remove('filled'); el.classList.add('flash');
   setTimeout(() => { el.classList.remove('flash'); el.classList.add('filled'); }, 700);
 }
 
 function updateCounter() {
   const filled = formFields.filter(f => document.getElementById('field_' + f.id)?.value).length;
   const total = formFields.length;
-  document.getElementById('field-counter').textContent = `${filled}/${total}`;
-  document.getElementById('progress-fill').style.width = total ? (filled/total*100)+'%' : '0%';
-}
-
-function showDebug(msg) {
-  const d = document.getElementById('debug');
-  d.style.display = 'block';
-  d.textContent = msg;
+  document.getElementById('field-counter').textContent = filled + '/' + total;
+  document.getElementById('progress-fill').style.width = total ? (filled / total * 100) + '%' : '0%';
 }
 </script>
 </body>
